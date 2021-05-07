@@ -2,10 +2,32 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const helmet = require('helmet');
+const mongoose = require('mongoose');
 const apiRoutes = require('./routes/api.js');
 const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner');
+
+// Mongoose connect
+mongoose.connect(process.env.DB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on('error', (err) => {
+  console.error(err);
+});
+db.once('open', () => {
+  console.log('Connected to database');
+});
+
+// Mongoose disconnect
+process.on('SIGINT', () => {
+  db.close(() => {
+    console.log(`Closing connection to ${dbName}`);
+    process.exit(0);
+  });
+});
 
 const app = express();
 
@@ -15,6 +37,29 @@ app.use(cors({ origin: '*' })); // For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// Helmet secrutiy middleware
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        'https://code.jquery.com/jquery-2.2.1.min.js',
+      ],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+    },
+  })
+);
+app.use(helmet.dnsPrefetchControl());
+app.use(helmet.frameguard());
+app.use(
+  helmet.referrerPolicy({
+    policy: ['same-origin'],
+  })
+); 
 
 // Sample front-end
 app.route('/b/:board/').get(function (req, res) {
