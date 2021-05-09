@@ -38,7 +38,6 @@ app.use(cors({ origin: '*' })); // For FCC testing purposes only
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 // Helmet secrutiy middleware
 app.use(
   helmet.contentSecurityPolicy({
@@ -59,7 +58,7 @@ app.use(
   helmet.referrerPolicy({
     policy: ['same-origin'],
   })
-); 
+);
 
 // Sample front-end
 app.route('/b/:board/').get(function (req, res) {
