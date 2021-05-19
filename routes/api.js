@@ -1,6 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable camelcase */
 const { json } = require('body-parser');
+const e = require('cors');
 const mongoose = require('mongoose');
 
 mongoose.set('useFindAndModify', false);
@@ -17,6 +18,11 @@ const threadSchema = new Schema({
   delete_password: { type: String, required: true },
   replies: [
     {
+      _id: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        default: Schema.Types.ObjecId,
+      },
       thread_id: { type: String, required: true },
       text: { type: String, required: true },
       created_on: {
@@ -31,15 +37,7 @@ const threadSchema = new Schema({
   replycount: { type: Number, default: 0, required: true },
 });
 
-const repliesSchema = new Schema({
-  thread_id: { type: String, required: true },
-  text: { type: String, required: true },
-  created_on: { type: Date, required: true, default: new Date().toUTCString() },
-  reported: { type: Boolean, required: true, default: false },
-  delete_password: { type: String, required: true },
-});
-
-const Replies = mongoose.model('replies', repliesSchema);
+// const Replies = mongoose.model('replies', repliesSchema);
 const Threads = mongoose.model('threads', threadSchema);
 
 // POST new thread
@@ -53,28 +51,22 @@ const newThread = (board, text, delete_password) => {
 };
 
 // POST new reply
-const newReply = async (thread_id, text, delete_password) => {
-  try {
-    const saveReply = await new Replies({
-      thread_id,
-      text,
-      delete_password,
-    });
-    await Threads.findOne({ _id: thread_id })
-      .then((res) => {
-        res.bumped_on = new Date().toUTCString();
-        res.replies.push(saveReply);
-        res.replycount += 1;
-        res.save();
-      })
-      .catch((err) => {
-        if (err) return console.log(err);
+const newReply = async (thread_id, text, delete_password) =>
+  Threads.findOne({ _id: thread_id })
+    .then((thread) => {
+      thread.bumped_on = new Date().toUTCString();
+      thread.replies.push({
+        _id: mongoose.Types.ObjectId(),
+        thread_id,
+        text,
+        delete_password,
       });
-    return saveReply.save();
-  } catch (err) {
-    if (err) return console.log(err);
-  }
-};
+      thread.replycount += 1;
+      thread.save();
+    })
+    .catch((err) => {
+      if (err) return console.log(err);
+    });
 
 // GET all threads for specific board
 const getThreads = (board) =>
@@ -108,7 +100,6 @@ const getThreads = (board) =>
         delete el.delete_password;
         delete el.reported;
       });
-
       return reduceThreadCount;
     })
     .catch((err) => {
@@ -117,10 +108,10 @@ const getThreads = (board) =>
 
 // Get all replies for specific thread
 const getReplies = (thread_id) =>
-  Threads.find({ _id: thread_id })
+  Threads.findOne({ _id: thread_id })
     .lean()
     .then((thread) => {
-      thread[0].replies.forEach((el) => {
+      thread.replies.forEach((el) => {
         delete el.delete_password;
         delete el.reported;
       });
@@ -171,6 +162,19 @@ module.exports = function (app) {
         .catch((err) => {
           if (err) return console.log(err);
         });
+    })
+    // Report thread
+    .put((req, res) => {
+      const { report_id } = req.body;
+      Threads.findById({ _id: report_id })
+        .then((thread) => {
+          thread.reported = true;
+          thread.save();
+          return res.json('success');
+        })
+        .catch((err) => {
+          if (err) return console.log(err);
+        });
     });
 
   app
@@ -180,49 +184,57 @@ module.exports = function (app) {
       const { board } = req.params;
       const { thread_id, text, delete_password } = req.body;
       try {
-        const reply = await newReply(thread_id, text, delete_password);
+        await newReply(thread_id, text, delete_password);
       } catch (err) {
         if (err) return console.log(err);
       }
       return res.redirect(`/b/${board}/${thread_id}`);
     })
     // Get replies
-    .get((req, res) => {
+    .get(async (req, res) => {
       const { board } = req.params;
       const { thread_id } = req.query;
-      return getReplies(thread_id)
-        .then((replies) => res.json(replies[0]))
-        .catch((err) => {
-          if (err) return console.log(err);
-        });
+      try {
+        const thread = await getReplies(thread_id);
+        res.json(thread);
+      } catch (err) {
+        if (err) return console.log(err);
+      }
     })
     // Delete reply
     .delete(async (req, res) => {
       const { thread_id, reply_id, delete_password } = req.body;
-      try {
-        // Find reply and delete
-        const reply = await Replies.findById({ _id: reply_id });
-
-        if (thread_id !== reply.thread_id) {
+      // Find thread
+      Threads.findOne({ _id: thread_id }).then((thread) => {
+        if (!thread) {
           return res.json('incorrect thread_id');
         }
-
-        if (delete_password === reply.delete_password) {
-          reply.text = '[deleted]';
-          await reply.save();
-          // Update replies array within the thread
-          const thread = await Threads.findOne({ _id: thread_id });
-          thread.replies.forEach((rep) => {
-            if (rep._id == reply_id) {
-              rep.text = '[deleted]';
+        // Delete reply from thread's replies array
+        thread.replies.forEach((rep) => {
+          if (rep._id == reply_id) {
+            rep.text = '[deleted]';
+            thread.save();
+            return res.json('success');
+          }
+        });
+        return res.json('incorrect password');
+      });
+    })
+    // Report reply
+    .put((req, res) => {
+      const { thread_id, reply_id } = req.body;
+      Threads.findById({ _id: thread_id })
+        .then((thread) => {
+          thread.replies.forEach((el) => {
+            if (el._id == reply_id) {
+              el.reported = true;
             }
           });
-          await thread.save();
+          thread.save();
           return res.json('success');
-        }
-        return res.json('incorrect password');
-      } catch (err) {
-        if (err) return console.log(err);
-      }
+        })
+        .catch((err) => {
+          if (err) return console.log(err);
+        });
     });
 };
