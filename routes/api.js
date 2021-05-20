@@ -73,7 +73,7 @@ const getThreads = (board) =>
   Threads.find({ board })
     .lean()
     .then((thread) => {
-      const sortedThreads = thread.sort((a, b) => a.created_on - b.created_on);
+      const sortedThreads = thread.sort((a, b) => b.created_on - a.created_on);
 
       // Reduce theads to 10
       const reduceThreadCount = [];
@@ -83,7 +83,7 @@ const getThreads = (board) =>
 
       // Sort replies by date created_on
       reduceThreadCount.forEach((el, i) => {
-        el.replies.sort((a, b) => a.created_on - b.created_on);
+        el.replies.sort((a, b) => b.created_on - a.created_on);
       });
 
       // Reduce replies to 3
@@ -155,7 +155,7 @@ module.exports = function (app) {
         .then((thread) => {
           if (delete_password === thread.delete_password) {
             thread.remove();
-            return res.json('succes');
+            return res.json('success');
           }
           return res.json(`incorrect password`);
         })
@@ -165,8 +165,8 @@ module.exports = function (app) {
     })
     // Report thread
     .put((req, res) => {
-      const { report_id } = req.body;
-      Threads.findById({ _id: report_id })
+      const { thread_id } = req.body;
+      Threads.findById({ _id: thread_id })
         .then((thread) => {
           thread.reported = true;
           thread.save();
