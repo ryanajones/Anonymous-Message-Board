@@ -209,15 +209,18 @@ module.exports = function (app) {
         if (!thread) {
           return res.json('incorrect thread_id');
         }
+
         // Delete reply from thread's replies array
         thread.replies.forEach((rep) => {
           if (rep._id == reply_id) {
+            if (rep.delete_password !== delete_password) {
+              return res.json('incorrect password');
+            }
             rep.text = '[deleted]';
             thread.save();
             return res.json('success');
           }
         });
-        return res.json('incorrect password');
       });
     })
     // Report reply
