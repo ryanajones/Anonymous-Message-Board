@@ -1,13 +1,84 @@
-* {
-  margin: 0px;
-  padding: 0px;
+:root {
+  --dark-bg: #1d2737;
+  --darker-light-bg: #0e558e;
+  --light-bg: #0968ad;
+  --white: #fcfcfc;
+  --dark-white: #eeeeee;
+  --accent-yello: #b49e31;
+  --dark-text: #333333;
 }
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 html {
-  font-size: 20px;
+  height: 140vh;
+  font-size: 10px;
+  font-family: Helvetica;
 }
 
 body {
-  padding: 10px;
+  background-color: var(--light-bg);
+}
+
+body header {
+  width: 100%;
+  color: var(--white);
+  background-color: var(--dark-bg);
+}
+
+body header h1 {
+  margin: 2rem 0;
+  font-size: 4rem;
+}
+
+body #testui {
+  width: 70rem;
+  margin-top: 3.5rem;
+  background-color: var(--white);
+}
+
+body #testui #testui-header {
+  width: 100%;
+  background-color: var(--darker-light-bg);
+}
+
+body #testui #testui-header h2 {
+  width: 25%;
+  padding: 1.5rem 0;
+  margin-left: 13rem;
+  color: var(--white);
+  background-color: var(--darker-light-bg);
+  font-size: 3rem;
+}
+
+body #testui h4 {
+  margin: 1rem 0;
+  font-size: 2rem;
+}
+
+body #testui form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body #testui form input {
+  margin: 1rem 0;
+  font-size: 1.5rem;
 }
 
 .replies {
@@ -37,3 +108,30 @@ body {
 #submitNewThread {
   margin: 50px;
 }
+
+/* Utilities */
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.flex-col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=style.css.map */
