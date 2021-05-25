@@ -1,10 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Ruda:wght@900&display=swap");
 :root {
   --dark-bg: #1d2737;
   --darker-light-bg: #0e558e;
   --light-bg: #0968ad;
   --white: #fcfcfc;
   --dark-white: #eeeeee;
-  --accent-yello: #b49e31;
+  --accent-yellow: #fffb00;
   --dark-text: #333333;
 }
 
@@ -15,12 +16,12 @@
           box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Helvetica Neue";
 }
 
 html {
   height: 140vh;
   font-size: 10px;
-  font-family: Helvetica;
 }
 
 body {
@@ -30,37 +31,54 @@ body {
 body header {
   width: 100%;
   color: var(--white);
+  border-bottom: 1px solid #7acef4;
   background-color: var(--dark-bg);
 }
 
 body header h1 {
   margin: 2rem 0;
   font-size: 4rem;
+  font-family: "Ruda", sans-serif;
+  font-weight: 900;
 }
 
 body #testui {
   width: 70rem;
   margin-top: 3.5rem;
+  border-radius: 10px 10px 0 0;
   background-color: var(--white);
+  -webkit-box-shadow: -3px 0 5px -3px #2b2a2a, 3px 0 5px -3px #302f2f;
+          box-shadow: -3px 0 5px -3px #2b2a2a, 3px 0 5px -3px #302f2f;
 }
 
 body #testui #testui-header {
   width: 100%;
+  border-radius: 10px 10px 0 0;
+  border-right: 1px solid rgba(2, 2, 2, 0.28);
+  border-left: 1px solid rgba(2, 2, 2, 0.28);
+  border-top: 1px solid rgba(250, 250, 250, 0.27);
+  border-bottom: 1px solid #333;
+  -webkit-box-shadow: 0px 0px 5px #525252;
+          box-shadow: 0px 0px 5px #525252;
   background-color: var(--darker-light-bg);
 }
 
 body #testui #testui-header h2 {
   width: 25%;
   padding: 1.5rem 0;
-  margin-left: 13rem;
+  margin-left: 4rem;
   color: var(--white);
   background-color: var(--darker-light-bg);
   font-size: 3rem;
+  font-family: "Ruda", sans-serif;
+  font-weight: 900;
 }
 
 body #testui h4 {
-  margin: 1rem 0;
+  margin: 5rem 0 3rem 0;
   font-size: 2rem;
+  font-family: "Ruda", sans-serif;
+  font-weight: 900;
 }
 
 body #testui form {
@@ -74,11 +92,21 @@ body #testui form {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding: 2rem;
+  background-color: var(--dark-white);
 }
 
-body #testui form input {
+body #testui form input,
+body #testui form textarea {
+  width: 100%;
   margin: 1rem 0;
+  padding: 0.7rem 0.7rem;
   font-size: 1.5rem;
+}
+
+body #testui form input[type="submit"] {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #265e7d;
 }
 
 .replies {

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>Anonymous Message Board</title>
-  <meta name="description" content="freeCodeCamp project boilerplate">
-  <link id="favicon" rel="icon" href="https://cdn.freecodecamp.org/universal/favicons/favicon-32x32.png"
-    type="image/x-icon">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../public/style.css">
-</head>
-
+  
+  <head>
+    <title>Anonymous Message Board</title>
+    <meta name="description" content="freeCodeCamp project boilerplate">
+    <link id="favicon" rel="icon" href="https://cdn.freecodecamp.org/universal/favicons/favicon-32x32.png"
+      type="image/x-icon">
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="../public/style.css">
+    </head>
+  
 <body class="flex-col">
   <header class='flex-col'>
     <h1>
@@ -22,27 +22,27 @@
     <div id="testui-header">
       <h2>API Tests:</h2>
     </div>
-    <h4>New thread (POST /api/threads/:board)</h4>
+    <h4>New Thread (POST /api/threads/:board)</h4>
     <form action=" /api/threads/test" method="post" id="newThread">
       <input type='text' placeholder='board' id='board1' name='board' required=''><br>
       <textarea type='text' placeholder='Thread text...' name='text' required=''></textarea><br>
       <input type='text' placeholder='password to delete' name='delete_password' required=''><br>
       <input type="submit" value="Submit">
     </form>
-    <h4>Report thread (PUT /api/threads/:board)</h4>
+    <h4>Report Thread (PUT /api/threads/:board)</h4>
     <form id="reportThread">
       <input type='text' placeholder='board' id='board2' name='board' required=''><br>
       <input type='text' placeholder='id to report' name='thread_id' required=''><br>
       <input type="submit" value="Submit">
     </form>
-    <h4>Delete thread (DELETE /api/threads/:board)</h4>
+    <h4>Delete Thread (DELETE /api/threads/:board)</h4>
     <form id="deleteThread">
       <input type='text' placeholder='board' id='board3' name='board' required=''><br>
       <input type='text' placeholder='id to delete' name='thread_id' required=''><br>
       <input type='text' placeholder='password' name='delete_password' required=''><br>
       <input type="submit" value="Submit">
     </form>
-    <h4>New reply (POST /api/replies/:board)</h4>
+    <h4>New Reply (POST /api/replies/:board)</h4>
     <form action="/api/threads/test" method="post" id="newReply">
       <input type='text' placeholder='board' id='board4' name='board' required=''><br>
       <input type='text' placeholder='thread id' name='thread_id' required=''><br>
@@ -50,14 +50,14 @@
       <input type='text' placeholder='password to delete' name='delete_password' required=''><br>
       <input type="submit" value="Submit">
     </form>
-    <h4>Report reply (PUT /api/replies/:board)</h4>
+    <h4>Report Reply (PUT /api/replies/:board)</h4>
     <form id="reportReply">
       <input type='text' placeholder='board' id='board5' name='board' required=''><br>
       <input type='text' placeholder='thread id' name='thread_id' required=''><br>
       <input type='text' placeholder='id to report' name='reply_id' required=''><br>
       <input type="submit" value="Submit">
     </form>
-    <h4>Delete reply (DELETE /api/replies/:board)</h4>
+    <h4>Delete Reply (DELETE /api/replies/:board)</h4>
     <form id="deleteReply">
       <input type='text' placeholder='board' id='board6' name='board' required=''><br>
       <input type='text' placeholder='thread id' name='thread_id' required=''><br>
