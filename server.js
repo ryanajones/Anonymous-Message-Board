@@ -48,7 +48,8 @@ app.use(
         "'unsafe-inline'",
         'https://code.jquery.com/jquery-2.2.1.min.js',
       ],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
     },
   })
 );

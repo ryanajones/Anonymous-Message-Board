@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Ruda:wght@900&display=swap");
+// Variables
+:root {
+  --dark-bg: #1d2737;
+  --darker-light-bg: #0e558e;
+  --light-bg: #0968ad;
+  --white: #fcfcfc;
+  --dark-white: #eeeeee;
+  --accent-yellow: #fffb00;
+  --dark-text: #333333;
+}
+
+// Styles
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue";
+}
+
+html {
+  height: 140vh;
+  font-size: 10px;
+}
+
+body {
+  background-color: var(--light-bg);
+  header {
+    width: 100%;
+    color: var(--white);
+    border-bottom: 1px solid #7acef4;
+    background-color: var(--dark-bg);
+    h1 {
+      margin: 2rem 0;
+      font-size: 4rem;
+      font-family: "Ruda", sans-serif;
+      font-weight: 900;
+    }
+  }
+  #testui {
+    width: 70rem;
+    margin-top: 3.5rem;
+    margin-bottom: 20rem;
+    border-radius: 10px 10px 0 0;
+    background-color: var(--white);
+    box-shadow: -3px 0 5px -3px #2b2a2a, 3px 0 5px -3px #302f2f;
+  }
+}
+
+/* Utilities */
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

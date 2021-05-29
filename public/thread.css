@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Ruda:wght@900&display=swap");
+:root {
+  --dark-bg: #1d2737;
+  --darker-light-bg: #0e558e;
+  --light-bg: #0968ad;
+  --white: #fcfcfc;
+  --dark-white: #eeeeee;
+  --accent-yellow: #fffb00;
+  --dark-text: #333333;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue";
+}
+
+html {
+  height: 140vh;
+  font-size: 10px;
+}
+
+body {
+  background-color: var(--light-bg);
+}
+
+body header {
+  width: 100%;
+  color: var(--white);
+  border-bottom: 1px solid #7acef4;
+  background-color: var(--dark-bg);
+}
+
+body header h1 {
+  margin: 2rem 0;
+  font-size: 4rem;
+  font-family: "Ruda", sans-serif;
+  font-weight: 900;
+}
+
+body #testui {
+  width: 70rem;
+  margin-top: 3.5rem;
+  margin-bottom: 20rem;
+  border-radius: 10px 10px 0 0;
+  background-color: var(--white);
+  -webkit-box-shadow: -3px 0 5px -3px #2b2a2a, 3px 0 5px -3px #302f2f;
+          box-shadow: -3px 0 5px -3px #2b2a2a, 3px 0 5px -3px #302f2f;
+}
+
+/* Utilities */
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.flex-col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=thread.css.map */
