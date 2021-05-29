@@ -12,6 +12,6 @@ https://Anonymous-Message-Board.ryanajones.repl.co
 
 ## Screenshots
 
-![alt text](https://i.imgur.com/tPuzfvW.png)
-![alt text](https://i.imgur.com/C8qJgBf.png)
-![alt text](https://i.imgur.com/dnM9WO7.png)
+![alt text](https://i.imgur.com/JqpruiY.png)
+![alt text](https://i.imgur.com/JqpruiY.png)
+![alt text](https://i.imgur.com/JvtpSbb.png)
